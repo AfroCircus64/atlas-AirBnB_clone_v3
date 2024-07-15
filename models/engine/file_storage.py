@@ -75,15 +75,18 @@ class FileStorage:
 
         Parameters:
         - cls: The class of the object to retrieve. Must be a class object.
-        - id: A string representing the unique identifier of the object to retrieve.
+        - id: A string representing the unique identifier of the
+        object to retrieve.
 
         Returns:
         - The object instance if found, otherwise None.
 
         Logic:
         1. Checks if the class is among the registered classes.
-        2. Filters the internal dictionary of objects to those of the specified class.
-        3. Iterates through the filtered objects to find the one matching the given ID.
+        2. Filters the internal dictionary of objects to those of
+        the specified class.
+        3. Iterates through the filtered objects to find the one
+        matching the given ID.
         4. Returns the found object or None if not found.
         """
         if cls in classes.values():
@@ -98,15 +101,17 @@ class FileStorage:
         Counts the number of objects in storage matching the given class.
 
         Parameters:
-        - cls: The class to count objects of. If None, counts all objects regardless of class.
+        - cls: The class to count objects of. If None, counts all objects
+        regardless of class.
 
         Returns:
         - An integer representing the count of objects.
 
         Logic:
-        1. If no specific class is provided, returns the total count of all objects stored.
-        2. If a class is specified, iterates through the internal dictionary of objects,
-        counting instances that match the specified class.
+        1. If no specific class is provided, returns the total count
+        of all objects stored.
+        2. If a class is specified, iterates through the internal dictionary
+        of objects, counting instances that match the specified class.
         """
         if cls is None:
             return len(self.__objects.values())

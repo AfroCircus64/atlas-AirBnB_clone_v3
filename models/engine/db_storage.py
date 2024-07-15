@@ -67,8 +67,8 @@ class DBStorage:
     def reload(self):
         """reloads data from the database"""
         Base.metadata.create_all(self.__engine)
-        sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        Session = scoped_session(sess_factory)
+        ses_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        Session = scoped_session(ses_factory)
         self.__session = Session
 
     def close(self):
@@ -81,7 +81,8 @@ class DBStorage:
 
         Parameters:
         - cls: The class of the object to retrieve. Must be a class object.
-        - id: A string representing the unique identifier of the object to retrieve.
+        - id: A string representing the unique identifier of
+        the object to retrieve.
 
         Returns:
         - The object instance if found, otherwise None.
@@ -89,7 +90,8 @@ class DBStorage:
         Logic:
         1. Checks if the class is among the registered classes.
         2. Queries all objects of the specified class.
-        3. Iterates through the queried objects to find the one matching the given ID.
+        3. Iterates through the queried objects to find the one
+        matching the given ID.
         4. Returns the found object or None if not found.
         """
         if cls in classes.values():
@@ -104,14 +106,17 @@ class DBStorage:
         Counts the number of objects in storage matching the given class.
 
         Parameters:
-        - cls: The class to count objects of. If None, counts all objects regardless of class.
+        - cls: The class to count objects of. If None, counts all objects
+        regardless of class.
 
         Returns:
         - An integer representing the count of objects.
 
         Logic:
-        1. If no specific class is provided, retrieves all objects and returns the total count.
-        2. If a class is specified, queries all objects of that class and returns the count.
+        1. If no specific class is provided, retrieves all objects and
+        returns the total count.
+        2. If a class is specified, queries all objects of that class
+        and returns the count.
         """
         if cls is None:
             return len(self.all().values())

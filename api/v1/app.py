@@ -3,7 +3,7 @@
 A simple Flask application that registers a blueprint and handles
 application context teardown to close the storage connection.
 """
-from flask import CORS
+from flask_cors import CORS
 from flask import Flask
 from models import storage
 from api.v1.views import app_views

@@ -10,6 +10,7 @@ app.register_blueprint(app_views, url_prefix='/api/v1')
 
 @app.teardown_appcontext
 def teardown_db(exception):
+    """Method for teardown"""
     storage.close()
 
 if __name__ == "__main__":

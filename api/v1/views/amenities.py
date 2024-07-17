@@ -49,7 +49,7 @@ def create_amenity():
         abort(400, "Missing name")
     amenity = Amenity(**data)
     amenity.save()
-    return jsonify(amenity.to_dict())
+    return jsonify(amenity.to_dict()), 201
 
 
 @app_views.route(
@@ -59,11 +59,9 @@ def update_amenity(amenity_id):
     amenity = storage.get(Amenity, amenity_id)
     if amenity is None:
         abort(404)
-    try:
-        data = request.get_json()
-    except Exception as e:
+    data = request.get_json(silent=True)
+    if not data:
         abort(400, "Not a JSON")
-
     ignore = ['id', 'created_at', 'updated_at']
     for key, value in data.items():
         if key not in ignore:

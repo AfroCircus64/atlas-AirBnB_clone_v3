@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 """
-Create a new view for User objects that handles all default RESTful API actions
+Create a new view for User objects that handles all default REST API actions
 """
 from flask import jsonify, abort, request
 from api.v1.views import app_views
 from models import storage
 from models.user import User
+
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
 def get_users():
@@ -14,6 +15,7 @@ def get_users():
     users_list = [user.to_dict() for user in users]
     return jsonify(users_list)
 
+
 @app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
 def get_user(user_id):
     """Retrieves a User object"""
@@ -21,6 +23,7 @@ def get_user(user_id):
     if user is None:
         abort(404)
     return jsonify(user.to_dict())
+
 
 @app_views.route('/users/<user_id>', methods=['DELETE'], strict_slashes=False)
 def delete_user(user_id):
@@ -32,20 +35,27 @@ def delete_user(user_id):
     storage.save()
     return jsonify({}), 200
 
+
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
 def create_user():
     """Creates a User"""
-    user_data = request.get_json()
-    if not user_data:
+    try:
+        data = request.get_json()
+    except Exception as e:
+        abort(400, "Not valid JSON")
+
+
+    if not data:
         abort(400, "Not a JSON")
-    if "email" not in user_data:
+    if "email" not in data:
         abort(400, "Missing email")
-    if "password" not in user_data:
+    if "password" not in data:
         abort(400, "Missing password")
 
-    new_user = User(**user_data)
+    new_user = User(**data)
     new_user.save()
     return jsonify(new_user.to_dict()), 201
+
 
 @app_views.route('/users/<user_id>', methods=['PUT'], strict_slashes=False)
 def update_user(user_id):

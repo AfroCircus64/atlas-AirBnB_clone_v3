@@ -29,7 +29,7 @@ def get_stats():
     return jsonify(counts)
 
 
-@app.errorhandler(404)
+@app_views.errorhandler(404)
 def page_not_found(e):
     """404 error handler"""
     return {"error": "Not found"}, 404

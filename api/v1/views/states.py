@@ -35,7 +35,7 @@ def delete_state(state_id):
     return jsonify({}), 200
 
 
-@app_views.route("/states/<state_id>", strict_slashes=False, methods=["POST"])
+@app_views.route("/states", strict_slashes=False, methods=["POST"])
 def create_state():
     """Method that creates a state object"""
     data = request.get_json(silent=True)

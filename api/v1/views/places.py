@@ -1,3 +1,9 @@
+#!/usr/bin/python3
+"""
+view for handling requests for places
+"""
+
+
 from flask import jsonify, abort, request
 from api.v1.views import app_views
 from models import storage

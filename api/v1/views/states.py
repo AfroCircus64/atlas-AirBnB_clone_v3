@@ -41,8 +41,10 @@ def create_state():
     try:
         data = request.get_json()
     except Exception as e:
-        abort(400, "Not a JSON")
+        abort(400, "Not a valid JSON")
 
+    if not data:
+        abort(400, "Not a JSON")
     if "name" not in data:
         abort(400, "Missing name")
     new_state = State(**data)

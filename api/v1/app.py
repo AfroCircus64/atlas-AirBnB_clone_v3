@@ -6,12 +6,13 @@ from api.v1.views import app_views
 import os
 from models import storage
 
-
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
 
-# Register blueprint after all routes are defined
+# Register blueprint before all routes are defined
 app.register_blueprint(app_views, url_prefix='/api/v1')
+
+
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 
 @app.teardown_appcontext

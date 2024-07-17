@@ -18,17 +18,17 @@ def list_states():
 def get_state(state_id):
     """Method that retrieves one state object"""
     state = storage.get(State, state_id)
-    if not state:
+    if state is None:
         abort(404)
     return jsonify(state.to_dict())
 
 
-@app_views.route("/states/<state_id>",
-                  strict_slashes=False, methods=["DELETE"])
+@app_views.route(
+        "/states/<state_id>", strict_slashes=False, methods=["DELETE"])
 def delete_state(state_id):
     """Method that deletes a state object"""
     state = storage.get(State, state_id)
-    if not state:
+    if state is None:
         abort(404)
     storage.delete(state)
     storage.save()

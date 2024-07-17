@@ -1,12 +1,16 @@
 #!/usr/bin/python3
 """Flask web application"""
 from flask import Flask, jsonify
+from flask_cors import CORS
 from api.v1.views import app_views
 import os
 from models import storage
 
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
+
+# Register blueprint after all routes are defined
 app.register_blueprint(app_views, url_prefix='/api/v1')
 
 

@@ -42,11 +42,7 @@ def delete_amenity(amenity_id):
     "/amenities/<amenity_id>", strict_slashes=False, methods=["POST"])
 def create_amenity():
     """Method that creates an amenity object"""
-    try:
-        data = request.get_json()
-    except Exception as e:
-        abort(400, "Not a valid JSON")
-
+    data = request.get_json(silent=True)
     if not data:
         abort(400, "Not a JSON")
     if "name" not in data:

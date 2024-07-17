@@ -60,10 +60,16 @@ def create_user():
 @app_views.route('/users/<user_id>', methods=['PUT'], strict_slashes=False)
 def update_user(user_id):
     """Updates a User object"""
+
+    try:
+        user_data = request.get_json()
+    except Exception as e:
+        abort(400, "Not valid JSON")
+
     user = storage.get(User, user_id)
     if user is None:
         abort(404)
-    user_data = request.get_json()
+
     if not user_data:
         abort(400, "Not a JSON")
 

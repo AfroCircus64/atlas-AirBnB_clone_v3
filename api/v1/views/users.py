@@ -44,7 +44,6 @@ def create_user():
     except Exception as e:
         abort(400, "Not valid JSON")
 
-
     if not data:
         abort(400, "Not a JSON")
     if "email" not in data:

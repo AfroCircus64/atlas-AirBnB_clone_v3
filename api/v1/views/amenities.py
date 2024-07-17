@@ -42,9 +42,11 @@ def delete_amenity(amenity_id):
     "/amenities/<amenity_id>", strict_slashes=False, methods=["POST"])
 def create_amenity():
     """Method that creates an amenity object"""
-    data = request.get_json()
-    if not data:
+    try:
+        data = request.get_json()
+    except Exception as e:
         abort(400, "Not a JSON")
+
     if "name" not in data:
         abort(400, "Missing name")
     amenity = Amenity(**data)
@@ -59,9 +61,11 @@ def update_amenity(amenity_id):
     amenity = storage.get(Amenity, amenity_id)
     if amenity is None:
         abort(404)
-    data = request.get_json()
-    if not data:
+    try:
+        data = request.get_json()
+    except Exception as e:
         abort(400, "Not a JSON")
+
     ignore = ['id', 'created_at', 'updated_at']
     for key, value in data.items():
         if key not in ignore:
